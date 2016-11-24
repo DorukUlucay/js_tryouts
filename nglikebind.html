@@ -1,0 +1,53 @@
+<!--two way bind js objects to html elements like angularjs does-->
+<html>
+
+<body>
+    <p ca="someText">empty</p>
+    <p ca="someNum">empty</p>
+
+    <input type="text" ca="user" />
+
+    <p ca="user">empty</p>
+</body>
+
+</html>
+
+<script>
+    var model = {
+        someText: "hello world",
+        someNum: 9,
+        user: "change it"
+    };
+	
+	//bind changed dom values to model
+    this.document.onchange = function(e) {
+        var atr = e.target.getAttribute("ca");
+        if (atr !== null) {
+            if (model.hasOwnProperty(atr)) {
+                model[atr] = e.target.value;
+            }
+        }
+        bindtoView();
+    }
+
+    this.document.onload = bindtoView();
+
+	//bind model values to dom 
+    function bindtoView() {
+        var allElements = document.getElementsByTagName("*");
+        for (i = 0; i < allElements.length; i++) {
+            elem = allElements[i];
+            atr = elem.getAttribute("ca");
+            if (atr !== null) {
+                if (model.hasOwnProperty(atr)) {
+
+                    if (elem.type == "text") {
+                        elem.value = model[atr];
+                    } else {
+                        elem.innerText = model[atr];
+                    }
+                }
+            }
+        }
+    }
+</script>
