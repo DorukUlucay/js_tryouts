@@ -1,2 +1,2 @@
 # js_tryouts
-understanding how js works
+understanding how some js libraries work
